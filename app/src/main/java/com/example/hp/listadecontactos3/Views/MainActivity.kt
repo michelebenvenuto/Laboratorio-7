@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+//Codigo para hacer funcionar el boton para agregar nuevos contactos
         buttonAddContact.setOnClickListener{
             startActivityForResult(
                 Intent(this,NewContactActivity::class.java ),
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         ).attachToRecyclerView(recycler_view)
-
+//Codigo para envira la informacion a la actividad con la informacion del cotacto
         adapter.setOnItemClickListener(object : ContactAdapter.OnItemClickListener{
             override fun onItemClick(contact: Contact) {
                 var intent = Intent(baseContext, ContactInfo::class.java)
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+//muestra el menu con la opcion de eliminar todosl los contactos
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return true
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+//Logica para descubrir de que actividad es que proviene la informacion
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

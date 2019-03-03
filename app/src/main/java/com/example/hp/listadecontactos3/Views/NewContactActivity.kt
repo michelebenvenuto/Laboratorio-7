@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.hp.listadecontactos3.R
 import kotlinx.android.synthetic.main.activity_new_contact.*
-
+//actividad que agrega nuevos contactos
 class NewContactActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "com.example.hp.listadecontactos3.Views.EXTRA_ID"
@@ -34,6 +34,7 @@ class NewContactActivity : AppCompatActivity() {
             title="New contact"
         }
     }
+    //boton para guardar los cambios o el contacto nuevo
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.add_contact_menu, menu)
         return true
@@ -49,7 +50,7 @@ class NewContactActivity : AppCompatActivity() {
         }
     }
 
-
+//guarda la informacion y regresa a la actividad principal
     private fun saveContact() {
         if (nameInput.text.toString().trim().isBlank() || phoneInput.text.toString().trim().isBlank()||emailInput.text.toString().trim().isBlank()) {
             Toast.makeText(this, "No se puede agregar contacto sin informacion", Toast.LENGTH_SHORT).show()

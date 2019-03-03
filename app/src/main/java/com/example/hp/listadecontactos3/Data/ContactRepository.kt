@@ -13,7 +13,7 @@ class ContactRepository(application: Application) {
         contactDao = database.contactDao()
         allContact= contactDao.getAllNotes()
     }
-
+//las diferenctes funciones asyncroicas que se utilizan atraves de la aplicaion
     fun insert(contact: Contact){
         val insertContactAsyncTask = InsertContactAsyncTask(contactDao).execute(contact)
     }

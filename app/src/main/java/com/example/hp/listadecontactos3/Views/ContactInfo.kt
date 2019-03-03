@@ -8,19 +8,20 @@ import android.view.View
 import android.widget.Toast
 import com.example.hp.listadecontactos3.R
 import kotlinx.android.synthetic.main.activity_contact_info.*
-
+//Actividad que se muestra cuando se hace click sobre un contacto
 class ContactInfo : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_info)
+        //Recupera la informacion del intento para habrir la actividad
         val name=intent.getStringExtra("name")
         val phone=intent.getStringExtra("phone")
         val mail=intent.getStringExtra("mail")
         nameView.setText(name)
         phoneNumberView.setText(phone)
         emailView.setText(mail)
-
+//Codigo para enviar el numero de telefono al app del telefono
         phoneNumberView.setOnClickListener {
             val phoneIntent: Intent = Intent(Intent.ACTION_DIAL)
             phoneIntent.setData(Uri.parse("tel:${phoneNumberView.text}"))
@@ -47,6 +48,7 @@ class ContactInfo : AppCompatActivity() {
 
 
     }
+    //regresa a la actividad principal
     fun retrun(view: View){
         val intent: Intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
