@@ -1,9 +1,12 @@
 package com.example.hp.listadecontactos3.Views
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -66,12 +69,61 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClick(contact: Contact) {
                 var intent = Intent(baseContext, ContactInfo::class.java)
                 intent.putExtra("name",contact.name)
-                intent.putExtra("number", contact.phoneNumber)
+                intent.putExtra("phone", contact.phoneNumber)
                 intent.putExtra("mail", contact.eMail)
 
-                startActivityForResult(intent, EDIT_NOTE_REQUEST)
+                startActivity(intent)
             }
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.delete_all_contacts -> {
+                contactViewModel.deleteAllContacts()
+                Toast.makeText(this, "Contactos Borrados", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_CONTACT_REQUEST && resultCode==Activity.RESULT_OK){
+            val newContact = Contact(
+                data!!.getStringExtra(NewContactActivity.EXTRA_NAME),
+                data.getStringExtra(NewContactActivity.EXTRA_PHONE),
+                data.getStringExtra(NewContactActivity.EXTRA_MAIL),
+                data.getIntExtra(NewContactActivity.EXTRA_PRIORITY,1)
+            )
+            contactViewModel.insert(newContact)
+            Toast.makeText(this, "Se agrego el contacto", Toast.LENGTH_SHORT).show()
+        }
+        else if (requestCode== EDIT_NOTE_REQUEST && resultCode==Activity.RESULT_OK){
+            val id = data?.getIntExtra(NewContactActivity.EXTRA_ID,-1)
+
+            if (id== -1){
+                Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+            }
+            val updateContact=Contact(
+                data!!.getStringExtra(NewContactActivity.EXTRA_NAME),
+                data.getStringExtra(NewContactActivity.EXTRA_PHONE),
+                data.getStringExtra(NewContactActivity.EXTRA_MAIL),
+                data.getIntExtra(NewContactActivity.EXTRA_PRIORITY,1)
+            )
+            updateContact.id=data.getIntExtra(NewContactActivity.EXTRA_ID,-1)
+            contactViewModel.update(updateContact)
+        }
+        else{
+            Toast.makeText(this, "Error al guardar!", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

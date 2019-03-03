@@ -6,25 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
-import com.example.hp.listadecontactos3.Data.Contact
-import com.example.hp.listadecontactos3.Data.ContactViewModel
 import com.example.hp.listadecontactos3.R
 import kotlinx.android.synthetic.main.activity_contact_info.*
 
 class ContactInfo : AppCompatActivity() {
-    private lateinit var contactViewModel: ContactViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_info)
-        contactViewModel= ViewModelProviders.of(this).get(ContactViewModel::class.java)
-        val itemName=intent.getStringExtra("name")
-        val itemPhone= intent.getStringExtra("number")
-        val itemMail=intent.getStringExtra("mail")
-        nameView.text=itemName
-        phoneNumberView.text=itemPhone
-        emailView.text=itemMail
+        val name=intent.getStringExtra("name")
+        val phone=intent.getStringExtra("phone")
+        val mail=intent.getStringExtra("mail")
+        nameView.setText(name)
+        phoneNumberView.setText(phone)
+        emailView.setText(mail)
 
         phoneNumberView.setOnClickListener {
             val phoneIntent: Intent = Intent(Intent.ACTION_DIAL)
@@ -33,7 +28,7 @@ class ContactInfo : AppCompatActivity() {
         }
         //Codigo para enviar la informacion a un app para poder mandar un correo
         emailView.setOnClickListener {
-            val to = arrayOf(itemMail)
+            val to = arrayOf(mail)
             val mailIntent: Intent= Intent(Intent.ACTION_SEND)
             mailIntent.setData(Uri.parse("mailto:"))
             mailIntent.setType("text/plain")
@@ -54,14 +49,6 @@ class ContactInfo : AppCompatActivity() {
     }
     fun retrun(view: View){
         val intent: Intent = Intent(this,MainActivity::class.java)
-        startActivity(intent)
-    }
-    fun edit(view:View){
-        val intent: Intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("currentName",nameView.text)
-        intent.putExtra("currentTel",phoneNumberView.text)
-        intent.putExtra("currentMail",emailView.text)
-        intent.putExtra("item",intent.getIntExtra("itemToGet",0))
         startActivity(intent)
     }
 }
