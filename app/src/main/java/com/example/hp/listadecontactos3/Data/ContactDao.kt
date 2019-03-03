@@ -17,6 +17,7 @@ interface ContactDao {
     @Query("DELETE FROM contacts_table")
     fun deleteAllNotes()
 
-    @Query("SELECT * FROM contacts_table ORDER BY priority DESC")
+    @Query("SELECT * FROM contacts_table ORDER BY priority ASC")
     fun getAllNotes(): LiveData<List<Contact>>
+
 }

@@ -26,6 +26,7 @@ class ContactRepository(application: Application) {
     fun deleteAllContacts(){
         val insertContactAsyncTask = deleteAllContactAsyncTask(contactDao).execute()
     }
+
     fun getAllContacts():LiveData<List<Contact>>{
         return allContact
     }

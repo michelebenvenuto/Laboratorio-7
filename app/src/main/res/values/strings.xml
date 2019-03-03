@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Lista de Contactos 3</string>
+    <string name="main_title">Mis Contactos</string>
+    <string name="add_contact_button">Agregar Contacto</string>
+    <string name="name_input">Nombre</string>
+    <string name="phone_input">Telefono</string>
+    <string name="email_input">Email</string>
+    <string name="return_button">Regresar</string>
+    <string name="add_button">Agregar</string>
+    <string name="name_title">Nombre</string>
+    <string name="email_title">Email</string>
+    <string name="phone_title">Telefono</string>
 </resources>

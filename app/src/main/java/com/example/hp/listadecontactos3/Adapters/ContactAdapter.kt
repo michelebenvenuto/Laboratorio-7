@@ -1,12 +1,10 @@
 package com.example.hp.listadecontactos3.Adapters
 
-import android.animation.PropertyValuesHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
@@ -41,6 +39,10 @@ class ContactAdapter:ListAdapter<Contact, ContactAdapter.ContactHolder>(DIFF_CAl
         holder.textViewPriority.text = currentNote.priority.toString()
         holder.textViewDescription.text = currentNote.phoneNumber
     }
+
+    fun getContactAt(position: Int):Contact?{
+        return getItem(position)
+    }
     inner class ContactHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
             itemView.setOnClickListener {
@@ -52,7 +54,7 @@ class ContactAdapter:ListAdapter<Contact, ContactAdapter.ContactHolder>(DIFF_CAl
         }
         var textViewTitle: TextView = itemView.text_view_name
         var textViewPriority: TextView = itemView.text_view_priority
-        var textViewDescription: TextView = itemView.text_view_number
+        var textViewDescription: TextView = itemView.text_view_phone
     }
     interface OnItemClickListener{
         fun onItemClick(contact: Contact)
